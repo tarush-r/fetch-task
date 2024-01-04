@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Dessert details model
 struct DessertDetails: Codable, Identifiable {
     let idMeal: String?
     let strMeal: String?
@@ -52,43 +53,42 @@ struct DessertDetails: Codable, Identifiable {
     let strMeasure18: String?
     let strMeasure19: String?
     let strMeasure20: String?
-    // Add more ingredients as needed
     
     var id: String? {
-            return idMeal
-        }
+        return idMeal
+    }
     
     var strIngredients: [String] {
-            var ingredients = [String]()
-            for index in 1...20 {
-                let ingredientKey = "strIngredient\(index)"
-                let mirror = Mirror(reflecting: self)
-                let ingredient = mirror.children.first { $0.label == ingredientKey }?.value as? String
-                
-                guard let unwrappedIngredient = ingredient, !unwrappedIngredient.isEmpty else {
-                    break
-                }
-                
-                ingredients.append(unwrappedIngredient)
+        var ingredients = [String]()
+        for index in 1...20 {
+            let ingredientKey = "strIngredient\(index)"
+            let mirror = Mirror(reflecting: self)
+            let ingredient = mirror.children.first { $0.label == ingredientKey }?.value as? String
+            
+            guard let unwrappedIngredient = ingredient, !unwrappedIngredient.isEmpty else {
+                break
             }
-            return ingredients
+            
+            ingredients.append(unwrappedIngredient)
         }
+        return ingredients
+    }
     
     var strMeasures: [String] {
-            var measures = [String]()
-            for index in 1...20 {
-                let measureKey = "strMeasure\(index)"
-                let mirror = Mirror(reflecting: self)
-                let measure = mirror.children.first { $0.label == measureKey }?.value as? String
-                
-                guard let unwrappedMeasure = measure, !unwrappedMeasure.isEmpty else {
-                    break
-                }
-                
-                measures.append(unwrappedMeasure)
+        var measures = [String]()
+        for index in 1...20 {
+            let measureKey = "strMeasure\(index)"
+            let mirror = Mirror(reflecting: self)
+            let measure = mirror.children.first { $0.label == measureKey }?.value as? String
+            
+            guard let unwrappedMeasure = measure, !unwrappedMeasure.isEmpty else {
+                break
             }
-            return measures
+            
+            measures.append(unwrappedMeasure)
         }
+        return measures
+    }
     
     
     var ingredientsAndMeasurements: [String] {
@@ -99,11 +99,7 @@ struct DessertDetails: Codable, Identifiable {
         if let ingredient2 = strIngredient2 {
             result.append("\(ingredient2) - \(strMeasure2 ?? "")")
         }
-        // Add more ingredients and measures as needed
         return result
     }
-    
-    // Add more properties as needed
-    // ...
 }
 

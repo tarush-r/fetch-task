@@ -8,11 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct Dessert: Hashable, Codable {
-    let strMeal: String
-    let strMealThumb: String
-    let idMeal: String?
-}
 
 class ViewModel: ObservableObject {
     
@@ -27,7 +22,6 @@ class ViewModel: ObservableObject {
                 return
             }
             
-            // Convert to JSON
             do {
                 let response = try JSONDecoder().decode([String: [Dessert]].self, from: data)
                 if let meals = response["meals"] {

@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+
+// Dessert Detail View
 struct DessertDetailView: View {
     let dessert: Dessert
     
@@ -16,10 +18,10 @@ struct DessertDetailView: View {
         ScrollView {
             VStack(alignment: .center, spacing: 16) {
                 RemoteImage(url: dessert.strMealThumb)
-                                    .scaledToFill()
-                                    .frame(width: UIScreen.main.bounds.width-40, height: UIScreen.main.bounds.height * 0.4) // Adjust the multiplier as needed
-                                    .clipped().cornerRadius(15).shadow(color: Color.black.opacity(0.3), radius: 15)
-
+                    .scaledToFill()
+                    .frame(width: UIScreen.main.bounds.width-40, height: UIScreen.main.bounds.height * 0.4) // Adjust the multiplier as needed
+                    .clipped().cornerRadius(15).shadow(color: Color.black.opacity(0.3), radius: 15)
+                
                 Spacer()
                 Divider()
                 if let dessertDetails = dessertDetails {
@@ -33,7 +35,6 @@ struct DessertDetailView: View {
                         }
                     }
                     
-                    Spacer()
                     Divider()
                     
                     Section(header: Text("Instructions").font(.headline)) {
@@ -47,7 +48,9 @@ struct DessertDetailView: View {
                 }
             }
             .padding()
-            .navigationTitle(dessert.strMeal)
+            .navigationTitle(
+                Text(dessert.strMeal)
+            )
             .onAppear {
                 fetchDessertDetails()
             }
@@ -58,7 +61,7 @@ struct DessertDetailView: View {
         guard let idMeal = dessert.idMeal, let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(idMeal)") else {
             return
         }
-
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 return
